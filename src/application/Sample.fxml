@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.collections.FXCollections?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+   <top>
+      <GridPane hgap="15.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <RadioButton fx:id="sine" mnemonicParsing="false" selected="true" text="正弦波">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggleWaveType" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="triangle" mnemonicParsing="false" text="三角波" toggleGroup="$toggleWaveType" GridPane.columnIndex="1" />
+            <RadioButton fx:id="saw" mnemonicParsing="false" text="鋸波" toggleGroup="$toggleWaveType" GridPane.columnIndex="2" />
+            <RadioButton fx:id="whiteNoise" mnemonicParsing="false" text="ホワイトノイズ" toggleGroup="$toggleWaveType" GridPane.columnIndex="3" />
+            <RadioButton fx:id="square" mnemonicParsing="false" text="矩形波" toggleGroup="$toggleWaveType" GridPane.rowIndex="1" />
+            <RadioButton fx:id="pTriangle" mnemonicParsing="false" text="擬似三角波" toggleGroup="$toggleWaveType" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <RadioButton fx:id="FCNoise" mnemonicParsing="false" text="ファミコンノイズ" toggleGroup="$toggleWaveType" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <RadioButton fx:id="pSaw" mnemonicParsing="false" text="擬似鋸波" toggleGroup="$toggleWaveType" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelFCNoiseFreq" disable="true" text="波形パターン周期" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="21.0" />
+               </GridPane.margin></Label>
+            <Label fx:id="labelPTriStep" disable="true" text="ステップ数" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="21.0" />
+               </GridPane.margin></Label>
+            <Label fx:id="labelPSawStep" disable="true" text="ステップ数" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="21.0" />
+               </GridPane.margin></Label>
+            <TextField fx:id="pTriStep" alignment="CENTER_RIGHT" disable="true" text="8" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets left="21.0" right="21.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="pSawStep" alignment="CENTER_RIGHT" disable="true" text="8" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets left="21.0" right="21.0" />
+               </GridPane.margin></TextField>
+            <ComboBox fx:id="FCNoiseFreq" disable="true" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets left="21.0" right="21.0" />
+               </GridPane.margin>
+               <items>
+            			<FXCollections fx:factory="observableArrayList">
+              				<String fx:value="長周期" />
+              				<String fx:value="短周期" />
+            			</FXCollections>
+          		 </items>
+            </ComboBox>
+            <Label text="基本周波数(A4)" GridPane.rowIndex="2" />
+            <TextField fx:id="baseFreq" alignment="CENTER_RIGHT" text="440.0" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+         </children>
+      </GridPane>
+   </top>
+   <left>
+      <GridPane prefHeight="82.0" prefWidth="662.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="53.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane prefHeight="60.0" prefWidth="661.0">
+               <children>
+                  <Slider fx:id="toneSlider" blockIncrement="1.0" majorTickUnit="12.0" max="39.0" min="-48.0" minorTickCount="11" prefHeight="14.0" prefWidth="280.0" showTickMarks="true" snapToTicks="true" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <Label text="音高">
+                     <GridPane.margin>
+                        <Insets left="3.0" />
+                     </GridPane.margin></Label>
+                  <Slider fx:id="lengthSlider" blockIncrement="0.5" majorTickUnit="0.5" max="10.0" min="0.5" minorTickCount="4" prefHeight="22.0" prefWidth="84.0" showTickMarks="true" snapToTicks="true" value="1.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <Label text="長さ" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets left="3.0" />
+                     </GridPane.margin></Label>
+                  <Button fx:id="play" mnemonicParsing="false" onAction="#onPlayButtonClicked" prefHeight="25.0" prefWidth="58.0" text="再生" GridPane.columnIndex="7" GridPane.columnSpan="2147483647" GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets bottom="4.0" />
+                     </GridPane.margin></Button>
+                  <Label fx:id="labelTone" text="A4" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                     <GridPane.margin>
+                        <Insets right="4.0" />
+                     </GridPane.margin></Label>
+                  <Label fx:id="labelLength" alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="17.0" prefWidth="35.0" text="1.0" textAlignment="RIGHT" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="3" GridPane.halignment="RIGHT">
+                     <GridPane.margin>
+                        <Insets right="4.0" />
+                     </GridPane.margin></Label>
+                  <Label text="音量" GridPane.columnIndex="4">
+                     <GridPane.margin>
+                        <Insets left="3.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Slider fx:id="ampSlider" blockIncrement="0.02" majorTickUnit="0.25" max="1.0" minorTickCount="1" showTickMarks="true" value="0.5" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <Label fx:id="labelAmp" text="50" GridPane.columnIndex="5" GridPane.halignment="RIGHT">
+                     <GridPane.margin>
+                        <Insets right="5.0" />
+                     </GridPane.margin>
+                  </Label>
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="98.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="0.0" prefWidth="182.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="253.0" minWidth="10.0" prefWidth="37.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="170.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.0" minWidth="0.0" prefWidth="33.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="224.0" minWidth="0.0" prefWidth="82.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="374.0" minWidth="0.0" prefWidth="5.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="0.0" prefWidth="58.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="19.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="56.0" minHeight="3.0" prefHeight="11.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+            <GridPane prefHeight="41.0" prefWidth="662.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="326.0" minWidth="10.0" prefWidth="38.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="552.0" minWidth="10.0" prefWidth="552.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="614.0" minWidth="10.0" prefWidth="62.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="保存先:" />
+                  <Label fx:id="savePath" prefHeight="25.0" prefWidth="508.0" GridPane.columnIndex="1" />
+                  <Button fx:id="openFileChooser" mnemonicParsing="false" onAction="#onOpenFileChooserButtonClicked" prefHeight="25.0" prefWidth="65.0" text="wav出力" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+   </left>
+</BorderPane>
