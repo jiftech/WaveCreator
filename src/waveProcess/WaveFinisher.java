@@ -1,6 +1,11 @@
 package waveProcess;
 
 
+/**
+ * WaveFinisher finishes("SHIAGERU") Wave when it is played, or written to file.
+ * @author jiftech
+ *
+ */
 public class WaveFinisher {
 	public static byte[] finish(Wave w, boolean clickNoiseCancel){
 		// if "clickNoiseCancel" is true, apply clickNoiseCanceler to Wave.

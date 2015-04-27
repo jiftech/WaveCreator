@@ -1,3 +1,6 @@
+/**
+ * ToneName is HashMap which associates "tone number" and "tona name".
+ */
 package application;
 
 import java.util.Collections;

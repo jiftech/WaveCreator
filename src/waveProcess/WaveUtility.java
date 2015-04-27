@@ -12,12 +12,21 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 
 import application.InputWaveProperty;
-
+/**
+ * WaveUtility provides wave constructer, wave player and wave file writer.
+ * @author jiftech
+ *
+ */
 public class WaveUtility {
 	private static final double SAMPLING_RATE = 44100.0;
 	private static final int    SAMPLING_BITS = 16;
 	private static final double FCNOISE_FREQ_MULTIPLYER = 1789772.5 / SAMPLING_RATE;
 
+	/**
+	 * Construct Wave instance from InputWaveProperty.
+	 * @param property InputWaveProperty
+	 * @return Wave instance
+	 */
 	public static Wave construct(InputWaveProperty property){
 		Wave   wave;
 
@@ -79,6 +88,10 @@ public class WaveUtility {
 		return wave;
 	}
 
+	/**
+	 * Play sound data which Wave instance has.
+	 * @param wave
+	 */
 	public static void play(Wave wave){
 		try{
 			AudioInputStream ais = new AudioInputStream(new ByteArrayInputStream(WaveFinisher.finish(wave, true)),
@@ -95,6 +108,11 @@ public class WaveUtility {
 		}
 	}
 
+	/**
+	 * Write sound data to "*.wav" file.
+	 * @param wave
+	 * @param file
+	 */
 	public static void fileWrite(Wave wave, File file){
 		AudioInputStream ais = new AudioInputStream(new ByteArrayInputStream(WaveFinisher.finish(wave, true)),
 													wave.getFormat(),

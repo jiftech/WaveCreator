@@ -1,3 +1,6 @@
+/**
+ * InputWaveProperty is an aggregation of wave property input with screen.
+ */
 package application;
 
 public class InputWaveProperty {

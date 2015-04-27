@@ -1,3 +1,6 @@
+/**
+ * Wave contains sound data(double[]) and AudioFormat.
+ */
 package waveProcess;
 import javax.sound.sampled.AudioFormat;
 

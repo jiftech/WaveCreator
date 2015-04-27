@@ -147,7 +147,7 @@
                <children>
                   <Label text="保存先:" />
                   <Label fx:id="savePath" prefHeight="25.0" prefWidth="508.0" GridPane.columnIndex="1" />
-                  <Button fx:id="openFileChooser" mnemonicParsing="false" onAction="#onOpenFileChooserButtonClicked" prefHeight="25.0" prefWidth="65.0" text="wav出力" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+                  <Button fx:id="exportWav" mnemonicParsing="false" onAction="#onExportWavButtonClicked" prefHeight="25.0" prefWidth="65.0" text="wav出力" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
                </children>
             </GridPane>
          </children>

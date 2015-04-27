@@ -49,12 +49,17 @@ public class SampleController implements Initializable{
 	@FXML private Button play;
 
 	@FXML private Label savePath;
-	@FXML private Button openFileChooser;
+	@FXML private Button exportWav;
 
-
+	/**
+	 * Initialize controlls.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
+		/**
+		 * Set wave name(String) as UserData to RadioButton(represents wave type).
+		 */
 		sine.setUserData("sine");
 		square.setUserData("square");
 		triangle.setUserData("triangle");
@@ -64,8 +69,15 @@ public class SampleController implements Initializable{
 		whiteNoise.setUserData("whiteNoise");
 		FCNoise.setUserData("FCNoise");
 
+		/**
+		 * Set initial selected value to FCNoiseFreq.
+		 */
 		FCNoiseFreq.getSelectionModel().selectFirst();
 
+		/**
+		 * Add ChangeListener to toggleWaveType.
+		 * When "pTriangle" selected, TextField "pTriStep" enabled, and so on.
+		 */
 		toggleWaveType.selectedToggleProperty().addListener(
 				new ChangeListener<Toggle>(){
 					@Override
@@ -102,12 +114,23 @@ public class SampleController implements Initializable{
 					}
 				});
 
+		/**
+		 * Add ChangeListener to Sliders.
+		 * Update current value as dragging Sliders.
+		 */
 		toneSlider.valueProperty().addListener(
 				new ChangeListener<Number>() {
 					@Override
 					public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue){
-						int toneValue = newValue.intValue() + 57;
-						labelTone.setText(toneNumtoName(toneValue % 12) + toneValue / 12);
+						// Frequency of wave is calcurated by this : baseFreq * 2^(toneValue/12).
+						// To calc tone name and "octave" easily, normalize this value by adding 57
+						// toneValue  : A0 -> -48, A#0 -> -47, ...                 ..., A4 -> 0,  ....
+						// normalized : A0 -> 9,   A#0 -> 10,  B0 -> 11, C1 -> 12, ..., A4 -> 57, ....
+						int normalizedtoneValue = newValue.intValue() + 57;
+
+						// toneValue % 12 : tone name
+						// toneValue % 12 : "octave" of tone
+						labelTone.setText(toneNumtoName(normalizedtoneValue % 12) + normalizedtoneValue / 12);
 					}
 				});
 
@@ -130,7 +153,10 @@ public class SampleController implements Initializable{
 
 	}
 
-
+	/**
+	 * When "play" button pushed, construct wave and play it.
+	 * @param e
+	 */
 	@FXML
 	private void onPlayButtonClicked(ActionEvent e){
 		InputWaveProperty property = buildInputWaveProperty();
@@ -138,9 +164,12 @@ public class SampleController implements Initializable{
 		WaveUtility.play(WaveUtility.construct(property));
 	}
 
-
+	/**
+	 * When "export wav" button pushed, construct wave and write to "*.wav".
+	 * @param e
+	 */
 	@FXML
-	private void onOpenFileChooserButtonClicked(ActionEvent e){
+	private void onExportWavButtonClicked(ActionEvent e){
 		File file;
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("名前をつけて保存");
@@ -158,7 +187,10 @@ public class SampleController implements Initializable{
 		}
 	}
 
-
+	/**
+	 * Build InputWaveProperty from current settings.
+	 * @return InputWaveProperty
+	 */
 	@FXML
 	private InputWaveProperty buildInputWaveProperty(){
 		String selectedWaveType = toggleWaveType.getSelectedToggle().getUserData().toString();
@@ -188,6 +220,11 @@ public class SampleController implements Initializable{
 		return p;
 	}
 
+	/**
+	 * Convert "tone number" (0-11) to "tone name" (C,C#,D,...,B).
+	 * @param num tone number
+	 * @return tone name
+	 */
 	private String toneNumtoName(int num) {
 		return ToneName.TONE_NAME_MAP.get(num);
 	}
