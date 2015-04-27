@@ -53,12 +53,10 @@ public class SampleController implements Initializable{
 	@FXML private Label savePath;
 	@FXML private Button openFileChooser;
 
-	File file;
 
-	// ŠeƒRƒ“ƒgƒ[ƒ‹‰Šú‰»
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// ”gŒ`‘I‘ğƒ‰ƒWƒIƒ{ƒ^ƒ“‚Éƒ†[ƒU[ƒf[ƒ^‚ğ“o˜^
+
 		sine.setUserData("sine");
 		square.setUserData("square");
 		triangle.setUserData("triangle");
@@ -67,9 +65,9 @@ public class SampleController implements Initializable{
 		pSaw.setUserData("pSaw");
 		whiteNoise.setUserData("whiteNoise");
 		FCNoise.setUserData("FCNoise");
-		// FCƒmƒCƒYƒpƒ^[ƒ“üŠú‘I‘ğComboBox‚Ì‰Šú’lİ’è
+
 		FCNoiseFreq.getSelectionModel().selectFirst();
-		// ”gŒ`‘I‘ğƒ‰ƒWƒIƒ{ƒ^ƒ“‚ÌƒOƒ‹[ƒv(waveType)‚É‘I‘ğ‚ÌƒCƒxƒ“ƒgƒŠƒXƒi[‚ğ’Ç‰Á
+
 		toggleWaveType.selectedToggleProperty().addListener(
 				new ChangeListener<Toggle>(){
 					@Override
@@ -105,7 +103,7 @@ public class SampleController implements Initializable{
 						}
 					}
 				});
-		// ‰¹‚ƒXƒ‰ƒCƒ_[‚ª“®‚©‚³‚ê‚½‚ÉŒ»İ‚Ì‰¹‚‚ğ•\¦
+
 		toneSlider.valueProperty().addListener(
 				new ChangeListener<Number>() {
 					@Override
@@ -114,7 +112,7 @@ public class SampleController implements Initializable{
 						labelTone.setText(toneNumtoName(toneValue % 12) + toneValue / 12);
 					}
 				});
-		// ’·‚³ƒXƒ‰ƒCƒ_[‚ª“®‚©‚³‚ê‚½‚ÉŒ»İ‚Ì’·‚³‚ğ•\¦
+
 		lengthSlider.valueProperty().addListener(
 				new ChangeListener<Number>() {
 					@Override
@@ -122,7 +120,7 @@ public class SampleController implements Initializable{
 						labelLength.setText(String.format("%.1f", newValue));
 					}
 				});
-		// ‰¹—ÊƒXƒ‰ƒCƒ_[‚ª“®‚©‚³‚ê‚½‚ÉŒ»İ‚Ì‰¹—Ê‚ğ•\¦
+
 		ampSlider.valueProperty().addListener(
 				new ChangeListener<Number>() {
 					@Override
@@ -134,7 +132,7 @@ public class SampleController implements Initializable{
 
 	}
 
-	// Ä¶ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ìˆ—
+
 	@FXML
 	private void onPlayButtonClicked(ActionEvent e){
 		InputWaveProperty property = buildInputWaveProperty();
@@ -143,16 +141,17 @@ public class SampleController implements Initializable{
 
 	}
 
-	// QÆƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ìˆ—
+
 	@FXML
 	private void onOpenFileChooserButtonClicked(ActionEvent e){
+		File file;
 		FileChooser chooser = new FileChooser();
-		chooser.setTitle("–¼‘O‚ğ‚Â‚¯‚Ä•Û‘¶");
+		chooser.setTitle("ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½Â‚ï¿½ï¿½Ä•Û‘ï¿½");
 		chooser.setInitialFileName(
 				toggleWaveType.getSelectedToggle().getUserData().toString() + ".wav");
 		chooser.getExtensionFilters().addAll(
-				new FileChooser.ExtensionFilter("WAVƒtƒ@ƒCƒ‹", "*.wav"),
-				new FileChooser.ExtensionFilter("‚·‚×‚Ä‚Ìƒtƒ@ƒCƒ‹", "*.*"));
+				new FileChooser.ExtensionFilter("WAVï¿½tï¿½@ï¿½Cï¿½ï¿½", "*.wav"),
+				new FileChooser.ExtensionFilter("ï¿½ï¿½ï¿½×‚Ä‚Ìƒtï¿½@ï¿½Cï¿½ï¿½", "*.*"));
 		file = chooser.showSaveDialog(new Stage());
 
 		if(file != null){
@@ -162,7 +161,7 @@ public class SampleController implements Initializable{
 		}
 	}
 
-	// Œ»İ‚Ì‘I‘ğ‚³‚ê‚½”gŒ`‚ÌƒvƒƒpƒeƒB‚ğ‚Ü‚Æ‚ß‚é
+
 	@FXML
 	private InputWaveProperty buildInputWaveProperty(){
 		String selectedWaveType = toggleWaveType.getSelectedToggle().getUserData().toString();
@@ -191,7 +190,7 @@ public class SampleController implements Initializable{
 								  selectedFCNoiseFreq);
 		return p;
 	}
-	// ‰¹‚‚ğ•\‚·”‚ğ‰¹–¼‚É•ÏŠ·
+
 	private String toneNumtoName(int num) {
 		return ToneName.TONE_NAME_MAP.get(num);
 	}
