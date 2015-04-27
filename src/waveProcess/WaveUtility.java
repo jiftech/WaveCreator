@@ -1,10 +1,19 @@
 package waveProcess;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+
+import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 
 import application.InputWaveProperty;
 
-public class WaveConstructor {
+public class WaveUtility {
 	private static final double SAMPLING_RATE = 44100.0;
 	private static final int    SAMPLING_BITS = 16;
 	private static final double FCNOISE_FREQ_MULTIPLYER = 1789772.5 / SAMPLING_RATE;
@@ -53,22 +62,47 @@ public class WaveConstructor {
 				    		new AudioFormat((float)SAMPLING_RATE, SAMPLING_BITS, 1, true, false));
 			break;
 		case "FCNoise":
-			if(FCNoiseFreq.equals("’·ŽüŠú"))
+			if(FCNoiseFreq.equals("é•·å‘¨æœŸ"))
 				noiseType = FCNoiseType.LONG_FREQ;
-			else if(FCNoiseFreq.equals("’ZŽüŠú"))
+			else if(FCNoiseFreq.equals("çŸ­å‘¨æœŸ"))
 				noiseType = FCNoiseType.SHORT_FREQ;
 			else{
 				noiseType = null;
-				System.out.println("hoge");
 			}
 			wave = new Wave(WaveGenerator.FCNoise(amp, freq * FCNOISE_FREQ_MULTIPLYER, SAMPLING_RATE, length, noiseType),
 				    	new AudioFormat((float)SAMPLING_RATE, SAMPLING_BITS, 1, true, false));
 			break;
 		default:
 			wave = null;
-			System.out.println("fuga");
 			break;
 		}
 		return wave;
+	}
+
+	public static void play(Wave wave){
+		try{
+			AudioInputStream ais = new AudioInputStream(new ByteArrayInputStream(WaveFinisher.finish(wave, true)),
+													wave.getFormat(),
+													wave.getLength());
+
+			DataLine.Info info = new DataLine.Info(Clip.class, ais.getFormat());
+			Clip clip = (Clip)AudioSystem.getLine(info);
+			clip.open(ais);
+			clip.start();
+
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public static void fileWrite(Wave wave, File file){
+		AudioInputStream ais = new AudioInputStream(new ByteArrayInputStream(WaveFinisher.finish(wave, true)),
+													wave.getFormat(),
+													wave.getLength());
+		try {
+			AudioSystem.write(ais, AudioFileFormat.Type.WAVE, file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

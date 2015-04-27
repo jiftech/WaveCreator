@@ -19,9 +19,7 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import waveProcess.WaveConstructor;
-import waveProcess.WaveFileWriter;
-import waveProcess.WavePlayer;
+import waveProcess.WaveUtility;
 
 public class SampleController implements Initializable{
 	@FXML private ToggleGroup toggleWaveType;
@@ -137,8 +135,7 @@ public class SampleController implements Initializable{
 	private void onPlayButtonClicked(ActionEvent e){
 		InputWaveProperty property = buildInputWaveProperty();
 
-		WavePlayer.play(WaveConstructor.construct(property));
-
+		WaveUtility.play(WaveUtility.construct(property));
 	}
 
 
@@ -146,17 +143,17 @@ public class SampleController implements Initializable{
 	private void onOpenFileChooserButtonClicked(ActionEvent e){
 		File file;
 		FileChooser chooser = new FileChooser();
-		chooser.setTitle("���O�����ĕۑ�");
+		chooser.setTitle("名前をつけて保存");
 		chooser.setInitialFileName(
 				toggleWaveType.getSelectedToggle().getUserData().toString() + ".wav");
 		chooser.getExtensionFilters().addAll(
-				new FileChooser.ExtensionFilter("WAV�t�@�C��", "*.wav"),
-				new FileChooser.ExtensionFilter("���ׂẴt�@�C��", "*.*"));
+				new FileChooser.ExtensionFilter("waveファイル", "*.wav"),
+				new FileChooser.ExtensionFilter("すべてのファイル", "*.*"));
 		file = chooser.showSaveDialog(new Stage());
 
 		if(file != null){
 			InputWaveProperty property = buildInputWaveProperty();
-			WaveFileWriter.write(WaveConstructor.construct(property), file);
+			WaveUtility.fileWrite(WaveUtility.construct(property), file);
 			savePath.setText(file.getAbsolutePath());
 		}
 	}

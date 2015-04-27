@@ -17,7 +17,7 @@ public class WaveFinisher {
 			for(int n = 0; n < length; n++){
 				shortSound[n] = (short)(s[n] * 32767);
 			}
-			return LittleEndianConverter.fromShortArray(shortSound);
+			return shortArrayTolittleEndianByteArray(shortSound);
 		}
 		// other sampling-bits are not supported yet...
 		else{
@@ -47,5 +47,15 @@ public class WaveFinisher {
 			newSoundData[n] = w.getSoundData()[n] * fade[n];
 		}
 		w.updateSoundData(newSoundData);
+	}
+
+	private static byte[] shortArrayTolittleEndianByteArray(short[] data){
+		byte[] byteData = new byte[data.length*2];
+
+		for(int i = 0; i < data.length; i++){
+			byteData[i*2]     = (byte)( data[i] & 0x00ff);
+			byteData[i*2 + 1] = (byte)((data[i] & 0xff00) >> 8);
+		}
+		return byteData;
 	}
 }
